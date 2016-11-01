@@ -1,0 +1,18 @@
+{
+  "description": "A list of tweet bodies",
+  "bodies": [
+		"We do hereby declare {month}",
+		"See you next {month} for",
+		"It’s that time of year again!",
+		"Are you ready for",
+		"We’re just days away from",
+		"Looking forward to",
+		"It’s time for",
+		"Requesting submissions for",
+		"Time’s up! That’s the end of",
+		"Just a few more hours in this year’s",
+		"On your marks, get set...",
+		"Thanks to everyone who participated in another great",
+		"Submitted for your consideration: "
+	]
+}
