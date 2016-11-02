@@ -36,7 +36,7 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 	$originalVerbStem = $verbStem;
 
 	/* Conjugate the verb, badly */
-	$vowels = ['a','e','i','o','u'];
+	$vowels = ['a','e','i','o','u','y'];
 	$doubledConsonants = ['b','g','m','n','p','t'];
 
 	if( substr( $verbStem, -1 ) == 'e' )
