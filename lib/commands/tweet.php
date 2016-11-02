@@ -26,9 +26,6 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 
 	$corpora = new Corpora\Corpora( $dirCorpora, $bot->getHistoryObject() );
 
-	$body = $corpora->getItem( 'tweets', 'bodies' );
-	$month = $corpora->getItem( 'time', 'months' );
-	$body = str_replace( '{month}', $month, $body );
 	/*
 	 * Noun and Verb
 	 */
@@ -66,7 +63,7 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 				}
 				else
 				{
-					$verbStem .= substr( $verbStem, -1 );
+					$verbStem .= substr( $verbStem, -1, 1 );
 				}
 
 				// Exceptions, of course
@@ -83,7 +80,9 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 
 	$verb = "{$verbStem}ing";
 
-	/* Initials */
+	/*
+	 * Initials
+	 */
 	$initialsNoun = '';
 	for( $ch = 0; $ch < strlen( $noun ); $ch++ )
 	{
@@ -109,8 +108,30 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 	$initialsVerb = ucfirst( $initialsVerb );
 	$initials = $initialsNoun . $initialsVerb;
 
-	/* Build the tweet */
-	$tweet = sprintf( '%s “National %s %s Month” #Na%sMo', $body, ucwords( $noun ), ucwords( $verb ), $initials );
+	/*
+	 * Event
+	 */
+	$event = sprintf( '“National %s %s Month”', ucwords( $noun ), ucwords( $verb ) );
+
+	/*
+	 * Body
+	 */
+	$body = $corpora->getItem( 'tweets', 'bodies' );
+	$month = $corpora->getItem( 'time', 'months' );
+
+	$body = str_replace( '{event}', $event, $body, $eventReplacements );
+	if( $eventReplacements == 0 )
+	{
+		$body = sprintf( '%s %s', $body, $event );
+	}
+
+	$body = str_replace( '{month}', $month, $body );
+	$body = str_replace( '{number}', rand( 2, 24 ), $body );
+
+	/*
+	 * Build the tweet
+	 */
+	$tweet = sprintf( '%s #Na%sMo', $body, $initials );
 
 	if( $this->getOptionValue( 'no-tweet' ) )
 	{
