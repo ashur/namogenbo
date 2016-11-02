@@ -4,7 +4,7 @@
 		"We do hereby declare {month}",
 		"See you next {month} for",
 		"It’s that time of year again!",
-		"Are you ready for",
+		"Are you ready for {event}?",
 		"We’re just days away from",
 		"Looking forward to",
 		"It’s time for",
@@ -13,6 +13,21 @@
 		"Just a few more hours in this year’s",
 		"On your marks, get set...",
 		"Thanks to everyone who participated in another great",
-		"Submitted for your consideration: "
+		"Submitted for your consideration:",
+		"Who’s up for another",
+		"3... 2... 1... Go!",
+		"{number} tips for {event}...",
+		"So far, so good!",
+		"Just in time for",
+		"#!/usr/bin/python\nif '{month}': \n    run({event})\n\n",
+		"Dreaming of",
+		"You + {month} =",
+		"It’s not too late!",
+		"There are no mistakes in",
+		"Don’t look now, but it’s time for",
+		"Siri, set a reminder for tomorrow at noon:",
+		"Good luck to everyone participating in {event}",
+		"Happy {event}!",
+		"Only {number} more days until {event}!"
 	]
 }
