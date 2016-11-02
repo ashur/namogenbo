@@ -141,6 +141,8 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 
 		throw new Command\CommandInvokedException( $e->getMessage(), 1 );
 	}
+
+	$bot->writeHistory();
 });
 
 $commandTweet->registerOption( 'no-tweet' );
