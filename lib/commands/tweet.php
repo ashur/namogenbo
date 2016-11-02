@@ -29,8 +29,10 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 	$body = $corpora->getItem( 'tweets', 'bodies' );
 	$month = $corpora->getItem( 'time', 'months' );
 	$body = str_replace( '{month}', $month, $body );
-
-	$noun = $corpora->getItem( 'nouns', 'words', 'nouns' );
+	/*
+	 * Noun and Verb
+	 */
+	$noun = $corpora->getItem( 'nouns', ['words','condiments'] );
 	$verbData = $corpora->getItem( 'verbs', 'all', 'verbs' );
 
 	$verbStem = $verbData['present'];
