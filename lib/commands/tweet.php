@@ -105,14 +105,14 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 		}
 	}
 	$initialsVerb = ucfirst( $initialsVerb );
-
 	$initials = $initialsNoun . $initialsVerb;
 
-	echo sprintf( '%s “National %s %s Month” #Na%sMo', $body, ucwords( $noun ), ucwords( $verb ), $initials ) . PHP_EOL;
-	return;
+	/* Build the tweet */
+	$tweet = sprintf( '%s “National %s %s Month” #Na%sMo', $body, ucwords( $noun ), ucwords( $verb ), $initials );
 
 	if( $this->getOptionValue( 'no-tweet' ) )
 	{
+		echo $tweet . PHP_EOL;
 		return;
 	}
 
