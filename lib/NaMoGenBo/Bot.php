@@ -26,17 +26,31 @@ class Bot extends \Huxtable\Bot\Bot
 	 */
 	public function getTweet()
 	{
+		$vowels = ['a','e','i','o','u'];
+
 		/*
 		 * Noun and Verb
 		 */
-		$noun = $this->corpora->getItem( 'nouns', ['words','objects','animals'] );
-		$verbData = $this->corpora->getItem( 'verbs', 'all', 'verbs' );
+		do
+		{
+			$nounIsAcceptable = true;
 
+			$noun = $this->corpora->getItem( 'nouns', ['words','objects','animals'] );
+			$noun = strtolower( $noun );
+
+			$nounFirstLetter = strtolower( substr( $noun, 0, 1 ) );
+
+			$nounIsAcceptable = $nounIsAcceptable && !in_array( $nounFirstLetter, $vowels );
+			$nounIsAcceptable = $nounIsAcceptable && substr( $noun, -3 ) != 'ing';
+		}
+		while( !$nounIsAcceptable );
+
+		$verbData = $this->corpora->getItem( 'verbs', 'all', 'verbs' );
 		$verbStem = $verbData['present'];
 		$originalVerbStem = $verbStem;
 
 		/* Conjugate the verb, badly */
-		$vowels = ['a','e','i','o','u','y'];
+		$vowels[] = 'y';
 		$doubledConsonants = ['b','g','m','n','p','t'];
 
 		if( substr( $verbStem, -1 ) == 'e' )
