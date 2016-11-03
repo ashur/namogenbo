@@ -54,7 +54,7 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 	    "puss",
 		"rag",
 		"rape",
-	    "reta",
+	    "retar",
 	    "shema",
 	    "skank",
 	    "slut",
@@ -64,8 +64,8 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 	    "tits",
 	    "tran",
 	    "twat",
-	    "whore",
-	    "wop"
+		"woman",
+	    "whore"
 	];
 
 	/*
