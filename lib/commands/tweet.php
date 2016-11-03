@@ -83,7 +83,6 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 		{
 			if( substr_count( $tweetNormalized, $exclusion ) > 0 )
 			{
-				echo "Found '{$exclusion}' in '{$tweet}'" . PHP_EOL;
 				$didFindGoodTweet = false;
 			}
 		}
