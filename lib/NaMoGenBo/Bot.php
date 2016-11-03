@@ -81,7 +81,7 @@ class Bot extends \Huxtable\Bot\Bot
 		$verb = "{$verbStem}ing";
 
 		/*
-		 * Initials
+		 * Abbreviation
 		 */
 		$initialsNoun = '';
 		for( $ch = 0; $ch < strlen( $noun ); $ch++ )
@@ -106,7 +106,7 @@ class Bot extends \Huxtable\Bot\Bot
 			}
 		}
 		$initialsVerb = ucfirst( $initialsVerb );
-		$initials = $initialsNoun . $initialsVerb;
+		$abbreviation = $initialsNoun . $initialsVerb;
 
 		/*
 		 * Event
@@ -114,24 +114,27 @@ class Bot extends \Huxtable\Bot\Bot
 		$event = sprintf( '“National %s %s Month”', ucwords( $noun ), ucwords( $verb ) );
 
 		/*
-		 * Body
-		 */
-		$body = $this->corpora->getItem( 'tweets', 'bodies' );
-		$month = $this->corpora->getItem( 'time', 'months' );
-
-		$body = str_replace( '{event}', $event, $body, $eventReplacements );
-		if( $eventReplacements == 0 )
-		{
-			$body = sprintf( '%s %s', $body, $event );
-		}
-
-		$body = str_replace( '{month}', $month, $body );
-		$body = str_replace( '{number}', rand( 2, 24 ), $body );
-
-		/*
 		 * Build the tweet
 		 */
-		$tweet = sprintf( '%s #Na%sMo', $body, $initials );
+		$hashtag = "#Na{$abbreviation}Mo";
+		$tweet = $this->corpora->getItem( 'tweets', 'bodies' );
+
+		$tweet = str_replace( '{event}', $event, $tweet, $eventReplacements );
+		if( $eventReplacements == 0 )
+		{
+			$tweet = sprintf( '%s %s', $tweet, $event );
+		}
+
+		$tweet = str_replace( '{hashtag}', $hashtag, $tweet, $hashtagReplacements );
+		if( $hashtagReplacements == 0 )
+		{
+			$tweet = sprintf( '%s %s', $tweet, $hashtag );
+		}
+
+		$month = $this->corpora->getItem( 'time', 'months' );
+		$tweet = str_replace( '{month}', $month, $tweet );
+
+		$tweet = str_replace( '{number}', rand( 2, 24 ), $tweet );
 
 		return $tweet;
 	}
