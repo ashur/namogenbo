@@ -29,7 +29,7 @@ class Bot extends \Huxtable\Bot\Bot
 		/*
 		 * Noun and Verb
 		 */
-		$noun = $this->corpora->getItem( 'nouns', ['words','condiments','animals'] );
+		$noun = $this->corpora->getItem( 'nouns', ['words','objects','animals'] );
 		$verbData = $this->corpora->getItem( 'verbs', 'all', 'verbs' );
 
 		$verbStem = $verbData['present'];
