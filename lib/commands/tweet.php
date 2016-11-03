@@ -24,117 +24,75 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 		->childDir( 'lib' )
 		->childDir( 'corpora' );
 
-	$corpora = new Corpora\Corpora( $dirCorpora, $bot->getHistoryObject() );
+	$bot->setCorporaDirectory( $dirCorpora );
+
+	$exclusions = [
+	    "biatch",
+	    "bitch",
+	    "chink",
+	    "crazy",
+	    "crip",
+	    "cunt",
+	    "dago",
+	    "daygo",
+	    "dego",
+	    "dick",
+	    "dumb",
+	    "dyke",
+	    "fag",
+	    "gook",
+	    "gyp",
+	    "homo",
+		"jap",
+	    "jew",
+	    "kike",
+	    "lame",
+	    "lesbo",
+	    "negro",
+	    "nigg",
+	    "paki",
+	    "puss",
+		"rag",
+		"rape",
+	    "reta",
+	    "shema",
+	    "skank",
+	    "slut",
+	    "spade",
+	    "spic",
+	    "tard",
+	    "tits",
+	    "tran",
+	    "twat",
+	    "whore",
+	    "wop"
+	];
 
 	/*
-	 * Noun and Verb
+	 * Ensure that we don't tweet the most egregious stuff
 	 */
-	$noun = $corpora->getItem( 'nouns', ['words','condiments'] );
-	$verbData = $corpora->getItem( 'verbs', 'all', 'verbs' );
-
-	$verbStem = $verbData['present'];
-	$originalVerbStem = $verbStem;
-
-	/* Conjugate the verb, badly */
-	$vowels = ['a','e','i','o','u','y'];
-	$doubledConsonants = ['b','g','m','n','p','t'];
-
-	if( substr( $verbStem, -1 ) == 'e' )
+	$didFindGoodTweet = true;
+	do
 	{
-		if( substr( $verbStem, -2, 1 ) != 'e' )
-		{
-			$verbStem = substr( $verbStem, 0, strlen( $verbStem ) - 1 );
-		}
-	}
+		$tweet = $bot->getTweet( $dirCorpora );
 
-	// Last character is a doubled consonant
-	if( in_array( substr( $verbStem, -1 ), $doubledConsonants ) )
-	{
-		// ... but not because we stripped off a trailing 'e'
-		if( substr( $originalVerbStem, -1 ) != 'e' )
+		/* Look for not-great stuff */
+		$tweetNormalized = strtolower( $tweet );
+
+		foreach( $exclusions as $exclusion )
 		{
-			// Next-to-last is a vowel
-			if( in_array( substr( $verbStem, -2, 1 ), $vowels ) )
+			if( substr_count( $tweetNormalized, $exclusion ) > 0 )
 			{
-				// ...and so is the one before that, so let's not double
-				if( in_array( substr( $verbStem, -3, 1 ), $vowels ) )
-				{
-
-				}
-				else
-				{
-					$verbStem .= substr( $verbStem, -1, 1 );
-				}
-
-				// Exceptions, of course
-				if( substr( $verbStem, -1 ) == 'n' )
-				{
-					if( substr( $verbStem, -2, 1 ) == 'e' )
-					{
-						$verbStem = substr( $verbStem, 0, strlen( $verbStem ) - 1 );
-					}
-				}
+				echo "Found '{$exclusion}' in '{$tweet}'" . PHP_EOL;
+				$didFindGoodTweet = false;
 			}
 		}
 	}
-
-	$verb = "{$verbStem}ing";
-
-	/*
-	 * Initials
-	 */
-	$initialsNoun = '';
-	for( $ch = 0; $ch < strlen( $noun ); $ch++ )
-	{
-		$initialsNoun .= $noun[$ch];
-
-		if( $ch > 0 && in_array( $noun[$ch], $vowels ) )
-		{
-			break;
-		}
-	}
-	$initialsNoun = ucfirst( $initialsNoun );
-
-	$initialsVerb = '';
-	for( $ch = 0; $ch < strlen( $verb ); $ch++ )
-	{
-		$initialsVerb .= $verb[$ch];
-
-		if( $ch > 0 && in_array( $verb[$ch], $vowels ) )
-		{
-			break;
-		}
-	}
-	$initialsVerb = ucfirst( $initialsVerb );
-	$initials = $initialsNoun . $initialsVerb;
-
-	/*
-	 * Event
-	 */
-	$event = sprintf( '“National %s %s Month”', ucwords( $noun ), ucwords( $verb ) );
-
-	/*
-	 * Body
-	 */
-	$body = $corpora->getItem( 'tweets', 'bodies' );
-	$month = $corpora->getItem( 'time', 'months' );
-
-	$body = str_replace( '{event}', $event, $body, $eventReplacements );
-	if( $eventReplacements == 0 )
-	{
-		$body = sprintf( '%s %s', $body, $event );
-	}
-
-	$body = str_replace( '{month}', $month, $body );
-	$body = str_replace( '{number}', rand( 2, 24 ), $body );
-
-	/*
-	 * Build the tweet
-	 */
-	$tweet = sprintf( '%s #Na%sMo', $body, $initials );
+	while( !$didFindGoodTweet );
 
 	if( $this->getOptionValue( 'no-tweet' ) )
 	{
+		$bot->writeHistory();
 		echo $tweet . PHP_EOL;
 		return;
 	}
