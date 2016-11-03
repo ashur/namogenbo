@@ -71,9 +71,9 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 	/*
 	 * Ensure that we don't tweet the most egregious stuff
 	 */
-	$didFindGoodTweet = true;
 	do
 	{
+		$didFindGoodTweet = true;
 		$tweet = $bot->getTweet( $dirCorpora );
 
 		/* Look for not-great stuff */
