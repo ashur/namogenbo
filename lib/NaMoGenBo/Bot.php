@@ -102,8 +102,18 @@ class Bot extends \Huxtable\Bot\Bot
 		{
 			$initialsNoun .= $noun[$ch];
 
+			// Found the first vowel
 			if( $ch > 0 && in_array( $noun[$ch], $vowels ) )
 			{
+				// Let's check for a friend, just in case...
+				if( isset( $noun[$ch + 1] ) )
+				{
+					if( in_array( $noun[$ch + 1], $vowels ) )
+					{
+						$initialsNoun .= $noun[$ch + 1];
+					}
+				}
+
 				break;
 			}
 		}
@@ -114,8 +124,18 @@ class Bot extends \Huxtable\Bot\Bot
 		{
 			$initialsVerb .= $verb[$ch];
 
+			// Found the first vowel
 			if( $ch > 0 && in_array( $verb[$ch], $vowels ) )
 			{
+				// Let's check for a friend, just in case...
+				if( isset( $verb[$ch + 1] ) )
+				{
+					if( in_array( $verb[$ch + 1], $vowels ) )
+					{
+						$initialsVerb .= $verb[$ch + 1];
+					}
+				}
+
 				break;
 			}
 		}
