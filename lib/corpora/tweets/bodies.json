@@ -14,7 +14,7 @@
 		"On your marks, get set...",
 		"Thanks to everyone who participated in another great",
 		"Submitted for your consideration:",
-		"Who’s up for another",
+		"Who’s up for another {event}?",
 		"3... 2... 1... Go!",
 		"{number} tips for {event}...",
 		"So far, so good!",
@@ -28,6 +28,7 @@
 		"Siri, set a reminder for tomorrow at noon:",
 		"Good luck to everyone participating in {event}",
 		"Happy {event}!",
+		"Happy {event}, everyone!",
 		"Only {number} more days until {event}!"
 	]
 }
