@@ -35,7 +35,7 @@ class Bot extends \Huxtable\Bot\Bot
 		{
 			$nounIsAcceptable = true;
 
-			$noun = $this->corpora->getItem( 'nouns', ['words','objects','animals'] );
+			$noun = $this->corpora->getItem( 'nouns', ['animals','appliances','clothes','condiments','flowers','monsters','objects','words'] );
 			$noun = strtolower( $noun );
 
 			$nounFirstLetter = strtolower( substr( $noun, 0, 1 ) );
