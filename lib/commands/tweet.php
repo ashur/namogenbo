@@ -88,6 +88,9 @@ $commandTweet = new Command( 'tweet', 'Generate a NaMo and tweet it', function()
 				$didFindGoodTweet = false;
 			}
 		}
+
+		$didFindGoodTweet = $didFindGoodTweet && substr_count( $tweetNormalized, 'ii' ) == 0;
+		$didFindGoodTweet = $didFindGoodTweet && substr_count( $tweetNormalized, 'nng' ) == 0;
 	}
 	while( !$didFindGoodTweet );
 
