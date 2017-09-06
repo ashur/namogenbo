@@ -29,7 +29,7 @@ class Bot extends \Huxtable\Bot\Bot
 		$vowels = ['a','e','i','o','u'];
 
 		/*
-		 * Noun and Verb
+		 * Noun
 		 */
 		do
 		{
@@ -39,19 +39,40 @@ class Bot extends \Huxtable\Bot\Bot
 			$noun = strtolower( $noun );
 
 			$nounFirstLetter = strtolower( substr( $noun, 0, 1 ) );
+			$nounSecondLetter = strtolower( substr( $noun, 1, 1 ) );
 
 			$nounIsAcceptable = $nounIsAcceptable && !in_array( $nounFirstLetter, $vowels );
+			$nounIsAcceptable = $nounIsAcceptable && in_array( $nounSecondLetter, $vowels );
 			$nounIsAcceptable = $nounIsAcceptable && substr( $noun, -3 ) != 'ing';
+			$nounIsAcceptable = $nounIsAcceptable && substr_count( $noun, ' ' ) == 0;
 		}
 		while( !$nounIsAcceptable );
 
-		$verbData = $this->corpora->getItem( 'verbs', 'all', 'verbs' );
-		$verbStem = $verbData['present'];
-		$originalVerbStem = $verbStem;
-
-		/* Conjugate the verb, badly */
+		/*
+		 * Verb
+		 */
 		$vowels[] = 'y';
-		$doubledConsonants = ['b','g','m','n','p','t'];
+ 		$doubledConsonants = ['b','g','m','p','t','d'];
+
+		do
+		{
+			$verbIsAcceptable = true;
+
+			/* Conjugate the verb, badly */
+			$verbData = $this->corpora->getItem( 'verbs', 'all', 'verbs' );
+			$verbStem = $verbData['present'];
+			$originalVerbStem = $verbStem;
+
+			$verbFirstLetter = strtolower( substr( $verbStem, 0, 1 ) );
+			$verbSecondLetter = strtolower( substr( $verbStem, 1, 1 ) );
+
+			$verbIsAcceptable = $verbIsAcceptable && !in_array( $verbFirstLetter, $vowels );
+			$verbIsAcceptable = $verbIsAcceptable && in_array( $verbSecondLetter, $vowels );
+			$verbIsAcceptable = $verbIsAcceptable && substr( $verbStem, -1, 1 ) != 'n';
+			$verbIsAcceptable = $verbIsAcceptable && substr( $verbStem, -1, 1 ) != 't';
+			$verbIsAcceptable = $verbIsAcceptable && substr_count( $verbStem, ' ' ) == 0;
+		}
+		while( !$verbIsAcceptable );
 
 		if( substr( $verbStem, -1 ) == 'e' )
 		{
@@ -97,49 +118,12 @@ class Bot extends \Huxtable\Bot\Bot
 		/*
 		 * Abbreviation
 		 */
-		$initialsNoun = '';
-		for( $ch = 0; $ch < strlen( $noun ); $ch++ )
-		{
-			$initialsNoun .= $noun[$ch];
-
-			// Found the first vowel
-			if( $ch > 0 && in_array( $noun[$ch], $vowels ) )
-			{
-				// Let's check for a friend, just in case...
-				if( isset( $noun[$ch + 1] ) )
-				{
-					if( in_array( $noun[$ch + 1], $vowels ) )
-					{
-						$initialsNoun .= $noun[$ch + 1];
-					}
-				}
-
-				break;
-			}
-		}
+		$initialsNoun = substr( $noun, 0, 2 );
 		$initialsNoun = ucfirst( $initialsNoun );
 
-		$initialsVerb = '';
-		for( $ch = 0; $ch < strlen( $verb ); $ch++ )
-		{
-			$initialsVerb .= $verb[$ch];
-
-			// Found the first vowel
-			if( $ch > 0 && in_array( $verb[$ch], $vowels ) )
-			{
-				// Let's check for a friend, just in case...
-				if( isset( $verb[$ch + 1] ) )
-				{
-					if( in_array( $verb[$ch + 1], $vowels ) )
-					{
-						$initialsVerb .= $verb[$ch + 1];
-					}
-				}
-
-				break;
-			}
-		}
+		$initialsVerb = substr( $verb, 0, 2 );
 		$initialsVerb = ucfirst( $initialsVerb );
+
 		$abbreviation = $initialsNoun . $initialsVerb;
 
 		/*
@@ -168,7 +152,14 @@ class Bot extends \Huxtable\Bot\Bot
 		$month = $this->corpora->getItem( 'time', 'months' );
 		$tweet = str_replace( '{month}', $month, $tweet );
 
-		$tweet = str_replace( '{number}', rand( 2, 24 ), $tweet );
+		$number = rand( 2, 24 );
+		$tweet = str_replace( '{number}', $number, $tweet );
+
+		$year = date( 'Y' );
+		$tweet = str_replace( '{year}', $year, $tweet );
+
+		$emoji = Utils::randomElement( ['🎉', '😅', '🙌', '💪', '💁', '🤗', '🙈', ''] );
+		$tweet = str_replace( '{emoji}', $emoji, $tweet );
 
 		return $tweet;
 	}
