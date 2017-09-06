@@ -6,9 +6,9 @@
 		"It’s that time of year again!",
 		"Are you ready for {event}?",
 		"We’re just days away from",
-		"We are mere moments away from",
+		"We’re just moments away from {event} {emoji}",
 		"Looking forward to",
-		"It’s time for",
+		"It’s time for {event} {hashtag} {emoji}",
 		"Requesting submissions for",
 		"Time’s up, folks! That’s it for",
 		"Just a few more hours in this year’s",
@@ -19,13 +19,11 @@
 		"3... 2... 1... Go!",
 		"{number} tips for {event}...",
 		"You’re just in time for",
-		"#!/usr/bin/python\nif month == '{month}': \n    run({event})\n    {hashtag}",
 		"Dreaming of {event} 😴 ...",
 		"You + {month} =",
 		"It’s not too late! Join us for",
-		"There are no mistakes in {hashtag}, just happy {event} accidents",
+		"There are no mistakes in {event}, just happy {hashtag} accidents",
 		"Don’t look now, but it’s time for",
-		"Siri, set a reminder for tomorrow at noon:",
 		"Good luck to everyone participating in {event}",
 		"Happy {event}!",
 		"Happy {event}, everyone!",
@@ -33,11 +31,21 @@
 		"It’s like they say: if it isn’t {event}, it isn’t {month}!",
 		"*rubs eyes* Is it {event} already?",
 		"I’ll be a monkey’s uncle… is it {event} already?",
-		"I have verbed\nthe nouns\nthat were in\nthe corpus\n\nForgive me\nit was\n{event}\n{hashtag}",
 		"Never fear! {event} is here",
 		"Hot damn, it’s",
 		"New to {event}? Don’t worry, so is everyone else",
 		"Rule {number} of {hashtag}: tell *everyone* about {event}",
-		"Day {number} of {event}... How’s everyone holding up?"
-	]
+		"Day {number} of {event}... How’s everyone holding up?",
+        "Just {number} weeks until {event} {year}! Who’s ready?",
+        "Only *{number} days* until {event} {emoji}",
+        "Get plenty of rest! {event} {year} starts tomorrow! {hashtag}",
+        "Hell’s bells, {event} {year} is here!",
+        "Pace yourself, we’re only a week into {event}",
+        "And just like that, it’s here... Happy {event} everybody!"
+	],
+    "retired": [
+        "I have verbed\nthe nouns\nthat were in\nthe corpus\n\nForgive me\nit was\n{event}\n{hashtag}",
+        "#!/usr/bin/python\nif month == '{month}': \n    run({event})\n    {hashtag}",
+        "Siri, set a reminder for tomorrow at noon:"
+    ]
 }
