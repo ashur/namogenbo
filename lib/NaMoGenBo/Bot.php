@@ -158,8 +158,10 @@ class Bot extends \Huxtable\Bot\Bot
 		$year = date( 'Y' );
 		$tweet = str_replace( '{year}', $year, $tweet );
 
-		$emoji = Utils::randomElement( ['🎉', '😅', '🙌', '💪', '💁', '🤗', '🙈', ''] );
+		$emoji = $this->corpora->getItem( 'emoji', 'all' );
 		$tweet = str_replace( '{emoji}', $emoji, $tweet );
+
+		$tweet = str_replace( '  ', ' ', $tweet );
 
 		return $tweet;
 	}
