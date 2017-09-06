@@ -11,6 +11,8 @@ use Huxtable\Bot\Twitter;
 use Huxtable\CLI\Command;
 use Huxtable\Core\File;
 
+date_default_timezone_set( 'UTC' );
+
 /**
  * @command		tweet
  * @desc		Generate a NaMo and tweet it
