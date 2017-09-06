@@ -5,7 +5,7 @@
 		"See you next {month} for",
 		"It’s that time of year again!",
 		"Are you ready for {event}?",
-		"We’re just days away from",
+		"We’re just days away from {event} {emoji}",
 		"We’re just moments away from {event} {emoji}",
 		"Looking forward to",
 		"It’s time for {event} {hashtag} {emoji}",
@@ -19,7 +19,6 @@
 		"3... 2... 1... Go!",
 		"{number} tips for {event}...",
 		"You’re just in time for",
-		"Dreaming of {event} 😴 ...",
 		"You + {month} =",
 		"It’s not too late! Join us for",
 		"There are no mistakes in {event}, just happy {hashtag} accidents",
@@ -32,8 +31,8 @@
 		"*rubs eyes* Is it {event} already?",
 		"I’ll be a monkey’s uncle… is it {event} already?",
 		"Never fear! {event} is here",
-		"Hot damn, it’s",
-		"New to {event}? Don’t worry, so is everyone else",
+		"Hot damn, it’s {event}!",
+		"New to {event}? Don’t worry, so is everyone else {emoji}",
 		"Rule {number} of {hashtag}: tell *everyone* about {event}",
 		"Day {number} of {event}... How’s everyone holding up?",
         "Just {number} weeks until {event} {year}! Who’s ready?",
@@ -44,6 +43,7 @@
         "And just like that, it’s here... Happy {event} everybody!"
 	],
     "retired": [
+        "Dreaming of {event} 😴 ...",
         "I have verbed\nthe nouns\nthat were in\nthe corpus\n\nForgive me\nit was\n{event}\n{hashtag}",
         "#!/usr/bin/python\nif month == '{month}': \n    run({event})\n    {hashtag}",
         "Siri, set a reminder for tomorrow at noon:"
