@@ -65,7 +65,6 @@ foreach( $commandFiles as $commandFile )
 /*
  * Bot configuration
  */
-$pathData = '/var/opt/' . $appName;
 $dirData = new File\Directory( $pathData );
 
 /* Bot */
