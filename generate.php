@@ -15,11 +15,6 @@ if( $pathData == false )
 }
 
 /*
- * App configuration
- */
-$info = require_once( $pathLib . '/info.php' );
-
-/*
  * Initialize autoloading
  */
 include_once( $pathApp . '/Autoloader.php' );
