@@ -20,9 +20,9 @@ $ php generate.php
 
 ## Notes
 
-This is a poor example of constructing a bot using PHP:
+This is an old project and a poor example of constructing a bot using PHP:
 
 - Several old, abandoned dependencies broken up in weird ways
 - Odd organization owing to its original implementation as a standalone command-line application
 
-You would do well not to use this project as any sort of guide, except perhaps as an example of how _not_ to build a bot.
+You would do well not to use this project as any sort of guide, except maybe as an example of how _not_ to build a bot.
