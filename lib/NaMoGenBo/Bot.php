@@ -6,20 +6,25 @@
 namespace NaMoGenBo;
 
 use Huxtable\Bot\Corpora;
-use Huxtable\Core\Config;
 use Huxtable\Core\File;
-use Huxtable\Core\Utils;
 
-class Bot extends \Huxtable\Bot\Bot
+class Bot
 {
 	use \Huxtable\Bot\Corpora\Consumer;
-	use \Huxtable\Bot\History\Consumer;
-	use \Huxtable\Bot\Twitter\Consumer;
 
 	/**
 	 * @var	Huxtable\Bot\Corpora\Corpora
 	 */
 	protected $corpora;
+
+	/**
+	 * @var string $name
+	 * @return void
+	 */
+	public function __construct( $name )
+	{
+		$this->name = $name;
+	}
 
 	/**
 	 * @return	string
@@ -171,6 +176,6 @@ class Bot extends \Huxtable\Bot\Bot
 	 */
 	public function setCorporaDirectory( File\Directory $dirCorpora )
 	{
-		$this->corpora = new Corpora\Corpora( $dirCorpora, $this->getHistoryObject() );
+		$this->corpora = new Corpora\Corpora( $dirCorpora );
 	}
 }

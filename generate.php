@@ -6,13 +6,6 @@ $pathBase		= __DIR__;
 $pathLib		= $pathBase . '/lib';
 $pathApp		= $pathLib  . '/NaMoGenBo';
 $pathVendor		= $pathBase . '/vendor';
-$pathData		= getenv( 'NAMOGENBO_DATA' );
-
-if( $pathData == false )
-{
-	echo 'Error: Missing required environment variable NAMOGENBO_DATA' . PHP_EOL;
-	exit( 1 );
-}
 
 /*
  * Initialize autoloading
@@ -27,20 +20,13 @@ include_once( $pathVendor . '/huxtable/core/autoload.php' );
  * Some basics
  */
 $dirApp = new File\Directory( $pathBase );
-$dirData = new File\Directory( $pathData );
 $dirLib = $dirApp->childDir( 'lib' );
 
 /*
  * Bot configuration
  */
-$dirData = new File\Directory( $pathData );
+$bot = new NaMoGenBo\Bot( 'namogenbo' );
 
-/* Bot */
-$bot = new NaMoGenBo\Bot( 'namogenbo', $dirData );
-
-/*
- * Corpora configuration
- */
 $dirCorpora = $dirApp
 	->childDir( 'lib' )
 	->childDir( 'corpora' );
@@ -73,4 +59,7 @@ do
 }
 while( !$didFindGoodTweet );
 
+/*
+ * Generate the tweet
+ */
 echo $tweet . PHP_EOL;
