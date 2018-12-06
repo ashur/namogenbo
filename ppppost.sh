@@ -1,5 +1,5 @@
 BOTNAME="@namogenbo"
-BASE=~/bots/namogenbo
+BASE=~/namogenbo
 
 log()
 {
